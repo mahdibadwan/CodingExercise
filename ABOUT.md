@@ -1,0 +1,1 @@
+I know just JAVA So, I have used JAVA for this exercise 

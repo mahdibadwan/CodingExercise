@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<f:view>
+	<h:head>
+		<style>
+.order-table {
+	border-collapse: collapse;
+}
+
+.order-table-header {
+	text-align: center;
+	background: none repeat scroll 0 0 #E5E5E5;
+	border-bottom: 1px solid #BBBBBB;
+	padding: 16px;
+}
+
+.order-table-odd-row {
+	text-align: center;
+	background: none repeat scroll 0 0 #FFFFFFF;
+	border-top: 1px solid #BBBBBB;
+}
+
+.order-table-even-row {
+	text-align: center;
+	background: none repeat scroll 0 0 #F9F9F9;
+	border-top: 1px solid #BBBBBB;
+}
+</style>
+		<title>#{i18n.Title}</title>'<!-- DatePicker JavaScript & CSS -->
+	</h:head>
+	<h:form>
+		<h:panelGrid id="hotelDealsSearch" columns="1">
+			<h:outputLabel>#{i18n.Destination}</h:outputLabel>
+			<h:inputText value="#{hotelDealManagmentBean.destinationName}"></h:inputText>
+			<h:panelGrid columns="4">
+				<h:outputLabel>#{i18n.MinimumTripStartDate}</h:outputLabel>
+				<h:inputText id="dateFrom"
+					value="#{hotelDealManagmentBean.minTripStartDate}">
+					<f:convertDateTime pattern="yyyy-mm-dd" type="date" />
+				</h:inputText>
+
+				<h:outputLabel>#{i18n.MaximumTripStartDate}</h:outputLabel>
+				<h:inputText id="dateTo"
+					value="#{hotelDealManagmentBean.maxTripStartDate}" label="Date">
+					<f:convertDateTime pattern="yyyy-mm-dd" type="date" />
+				</h:inputText>
+			</h:panelGrid>
+			<h:panelGrid columns="2">
+				<h:outputLabel>#{i18n.LengthOfStay}</h:outputLabel>
+				<h:inputText value="#{hotelDealManagmentBean.lengthOfStay}"></h:inputText>
+			</h:panelGrid>
+			<h:panelGrid columns="4">
+				<h:outputLabel>#{i18n.MinimumStarRating}</h:outputLabel>
+				<h:inputText id="minimumStarRating"
+					value="#{hotelDealManagmentBean.minStarRating}">
+				</h:inputText>
+
+				<h:outputLabel>#{i18n.MaximumStarRating}</h:outputLabel>
+				<h:inputText id="maximumStarRating"
+					value="#{hotelDealManagmentBean.maxStarRating}">
+				</h:inputText>
+			</h:panelGrid>
+			<h:panelGrid columns="4">
+				<h:outputLabel>#{i18n.MinimumTotalRate}</h:outputLabel>
+				<h:inputText id="MinimumTotalRate"
+					value="#{hotelDealManagmentBean.minTotalRate}">
+				</h:inputText>
+
+				<h:outputLabel>#{i18n.MaximumTotalRate}</h:outputLabel>
+				<h:inputText id="MaximumTotalRate"
+					value="#{hotelDealManagmentBean.maxTotalRate}">
+				</h:inputText>
+			</h:panelGrid>
+			<h:panelGrid columns="4">
+				<h:outputLabel>#{i18n.MinimumGuestRating}</h:outputLabel>
+				<h:inputText id="MinimumGuestRating"
+					value="#{hotelDealManagmentBean.minGuestRating}">
+				</h:inputText>
+
+				<h:outputLabel>#{i18n.MaximumGuestRating}</h:outputLabel>
+				<h:inputText id="MaximumGuestRating"
+					value="#{hotelDealManagmentBean.maxGuestRating}">
+				</h:inputText>
+			</h:panelGrid>
+			<h:commandButton value="submit" type="submit"
+				action="#{hotelDealManagmentBean.loadHotelDeals}" />
+		</h:panelGrid>
+
+		<h:dataTable
+			value="#{hotelDealManagmentBean.hotelDeals.offers.hotels}"
+			var="hotel" styleClass="order-table" headerClass="order-table-header"
+			rowClasses="order-table-odd-row,order-table-even-row">
+
+			<h:column>
+				<f:facet name="header">#{i18n.HotelURL}</f:facet>
+				<h:outputLink value="#{hotel.hotelUrls.hotelInfositeUrl}"
+					target="_blank">
+					<h:graphicImage value="#{hotel.hotelInfo.hotelImageUrl}" />
+				</h:outputLink>
+			</h:column>
+			<h:column>
+				<f:facet name="header">#{i18n.HotelName}</f:facet>
+    				#{hotel.hotelInfo.hotelName}
+    			</h:column>
+
+			<h:column>
+				<f:facet name="header">#{i18n.HotelAddress}</f:facet>
+    				#{hotel.hotelInfo.hotelStreetAddress}
+    			</h:column>
+
+			<h:column>
+				<f:facet name="header">#{i18n.Price}</f:facet>
+    				#{hotel.hotelPricingInfo.averagePriceValue}
+    			</h:column>
+
+			<h:column>
+				<f:facet name="header">Hotel Star Rating</f:facet>
+    				#{hotel.hotelInfo.hotelStarRating}
+    			</h:column>
+
+		</h:dataTable>
+	</h:form>
+
+</f:view>
+</html>
